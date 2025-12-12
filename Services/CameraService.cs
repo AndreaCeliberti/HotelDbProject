@@ -1,17 +1,25 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HotelDbProject.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelDbProject.Services
 {
-    public class CameraService
+    public class CameraService : ServiceBase
     {
-        private readonly Data.HotelDbContext _context;
-        public CameraService(Data.HotelDbContext context)
+        
+        public CameraService(HotelDbContext hotelDbContext) : base(hotelDbContext)
         {
-            _context = context;
         }
+        
         public async Task<List<Models.Camera>> GetAllCamereAsync()
         {
-            return await _context.Camere.ToListAsync();
+            List<Models.Camera> camere = await _hotelDbContext.Camere.ToListAsync();
+            return camere;
+        }
+
+        public async Task<bool> CreateCameraAsync(Models.Camera camera)
+        {
+            _hotelDbContext.Camere.Add(camera);
+            return await _hotelDbContext.SaveAsync();
         }
 
     }

@@ -1,17 +1,25 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HotelDbProject.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelDbProject.Services
 {
-    public class PrenotazioneService
+    public class PrenotazioneService : ServiceBase
     {
-        private readonly Data.HotelDbContext _context;
-        public PrenotazioneService(Data.HotelDbContext context)
+        
+        public PrenotazioneService(HotelDbContext hotelDbContext) : base(hotelDbContext)
         {
-            _context = context;
         }
+       
         public async Task<List<Models.Prenotazione>> GetAllPrenotazioniAsync()
         {
-            return await _context.Prenotazioni.ToListAsync();
+            List<Models.Prenotazione> prenotazioni = await _hotelDbContext.Prenotazioni.ToListAsync();
+            return prenotazioni;
+        }
+
+        public async Task<bool> CreatePrenotazioneAsync(Models.Prenotazione prenotazione)
+        {
+            _hotelDbContext.Prenotazioni.Add(prenotazione);
+            return await _hotelDbContext.SaveAsync();
         }
     }
 }

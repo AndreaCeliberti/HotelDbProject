@@ -1,8 +1,7 @@
 ﻿
 
+
 using HotelDbProject.Data;
-using HotelDbProject.Models;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelDbProject.Services
@@ -21,7 +20,7 @@ namespace HotelDbProject.Services
             return clienti;
         }
 
-        public async Task<bool> CreateClienteAsync(Cliente cliente)
+        public async Task<bool> CreateClienteAsync(Models.Cliente cliente)
         {
             _hotelDbContext.Clienti.Add(cliente);
             return await _hotelDbContext.SaveAsync();

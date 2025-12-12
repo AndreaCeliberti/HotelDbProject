@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HotelDbProject.Controllers
 {
-    public class PrenotazineController : Controller
+    public class PrenotazioneController : Controller
     {
         private readonly PrenotazioneService _prenotazioneService;
-        public PrenotazineController(PrenotazioneService prenotazioneService)
+        public PrenotazioneController(PrenotazioneService prenotazioneService)
         {
             _prenotazioneService = prenotazioneService;
         }
