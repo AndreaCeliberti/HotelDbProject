@@ -1,0 +1,39 @@
+﻿@model List<Prenotazione>
+@{
+    ViewData["Title"] = "Lista Prenotazioni";
+}
+<h1>@ViewData["Title"]</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>PrenotazioneId</th>
+            <th>ClienteId</th>
+            <th>CameraID</th>
+            <th>Data Arrivo</th>
+            <th>Data Partenza</th>
+            <th>Stato prenotazione</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var prenotazione in Model)
+            {
+                <tr>
+                    <td>@prenotazione.PrenotazioneId</td>
+                    <td>@prenotazione.ClienteId</td>
+                    <td>@prenotazione.CameraId</td>
+                    <td>@prenotazione.DataInizio.ToShortDateString()</td>
+                    <td>@prenotazione.DataFine.ToShortDateString()</td>
+                    <td>@prenotazione.StatoPrenotazione</td>
+                    
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@prenotazione.PrenotazioneId" class="btn btn-primary">Modifica</a>
+                        <a asp-action="Delete" asp-route-id="@prenotazione.PrenotazioneId" class="btn btn-danger">Elimina</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
