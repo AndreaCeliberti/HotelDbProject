@@ -12,9 +12,9 @@ namespace HotelDbProject.Data
         public DbSet<Camera> Camere { get; set; }
         public DbSet<Prenotazione> Prenotazioni { get; set; }
 
-        internal async Task<bool> SaveAsync()
+        public async Task<bool> SaveAsync()
         {
-            throw new NotImplementedException();
+            return await SaveChangesAsync() > 0;
         }
     }
 }   
