@@ -1,0 +1,49 @@
+﻿@using HotelDbProject.ViewModels
+@model PrenotazioneCreateViewModel
+@{
+    ViewBag.Title = "Aggiungi Prenotazione";
+    SelectList clienti = ViewBag.Clienti as SelectList;
+    SelectList camere = ViewBag.Camere as SelectList;
+}
+
+<section>
+    <div>
+        <form asp-controller="Prenotazione" asp-action="CreateSave" method="post">
+            <div class="card shadow-sm p-4 mt-3">
+                <div class="mb-3">
+                    <label asp-for="ClienteId" class="form-label">Cliente</label>
+                    <select asp-for="ClienteId" class="form-select" asp-items="clienti">
+                        <option value="">-- Seleziona un cliente --</option>
+                    </select>
+                    <span asp-validation-for="ClienteId" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="CameraId" class="form-label">Camera</label>
+                    <select asp-for="CameraId" class="form-select" asp-items="camere">
+                        <option value="">-- Seleziona una camera --</option>
+                    </select>
+                    <span asp-validation-for="CameraId" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="DataInizio" class="form-label"></label>
+                    <input asp-for="DataInizio" class="form-control" placeholder="Inizio soggiorno" />
+                    <span asp-validation-for="DataInizio" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="DataFine" class="form-label"></label>
+                    <input asp-for="DataFine" class="form-control" placeholder="Fine soggiorno" />
+                    <span asp-validation-for="DataFine" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="StatoPrenotazione" class="form-label"></label>
+                    <input asp-for="StatoPrenotazione" class="form-control" placeholder="Stato prenotazione" />
+                    <span asp-validation-for="StatoPrenotazione" class="text-danger"></span>
+                </div>
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-primary">Salva</button>
+                    <a asp-action="Index" class="btn btn-secondary">Annulla</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

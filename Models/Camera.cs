@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelDbProject.Models
 {
@@ -14,6 +15,8 @@ namespace HotelDbProject.Models
         [Required]
         [Precision(18, 2)]
         public decimal Prezzo { get; set; }
+        [InverseProperty(nameof(Prenotazione.Camera))]
+        public List<Prenotazione> Prenotazioni { get; set; }
 
 
     }

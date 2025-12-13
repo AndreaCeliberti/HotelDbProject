@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelDbProject.Models
 {
@@ -14,6 +15,8 @@ namespace HotelDbProject.Models
         public string Email { get; set; }
         [Required]
         public string Telefono { get; set; }
+        [InverseProperty(nameof(Prenotazione.Cliente))]
+        public List<Prenotazione> Prenotazioni { get; set; }
 
     }
 }

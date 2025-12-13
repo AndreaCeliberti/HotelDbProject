@@ -12,7 +12,7 @@ namespace HotelDbProject.Services
        
         public async Task<List<Models.Prenotazione>> GetAllPrenotazioniAsync()
         {
-            List<Models.Prenotazione> prenotazioni = await _hotelDbContext.Prenotazioni.ToListAsync();
+            List<Models.Prenotazione> prenotazioni = await _hotelDbContext.Prenotazioni.Include(p => p.ClienteId).Include(p => p.CameraId).ToListAsync();
             return prenotazioni;
         }
 
