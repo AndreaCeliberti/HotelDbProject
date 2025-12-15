@@ -51,5 +51,62 @@ namespace HotelDbProject.Controllers
 
             return RedirectToAction("Index");
         }
+        // GET - Edit (per modal)
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            Cliente? cliente = await _clienteService.GetClienteByIdAsync(id);
+            if (cliente == null) return NotFound();
+
+            ClienteViewModel vm = new ClienteViewModel
+            {
+                ClienteId = cliente.ClienteId,
+                Nome = cliente.Nome,
+                Cognome = cliente.Cognome,
+                Email = cliente.Email,
+                Telefono = cliente.Telefono
+            };
+
+            return PartialView("_EditModal", vm);
+        }
+
+        
+        [HttpPost]
+        public async Task<IActionResult> EditSave(ClienteViewModel vm)
+        {
+            if (!ModelState.IsValid)
+                return PartialView("_EditModal", vm);
+
+            Cliente cliente = new Cliente
+            {
+                ClienteId = vm.ClienteId,
+                Nome = vm.Nome,
+                Cognome = vm.Cognome,
+                Email = vm.Email,
+                Telefono = vm.Telefono
+            };
+
+            await _clienteService.UpdateClienteAsync(cliente);
+            return RedirectToAction("Index");
+        }
+
+        
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            Cliente? cliente = await _clienteService.GetClienteByIdAsync(id);
+            if (cliente == null) return NotFound();
+
+            return PartialView("_DeleteModal", cliente);
+        }
+
+        
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        {
+            await _clienteService.DeleteClienteAsync(id);
+            return RedirectToAction("Index");
+        }
+
     }
 }

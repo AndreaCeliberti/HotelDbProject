@@ -2,8 +2,8 @@
 @model PrenotazioneCreateViewModel
 @{
     ViewBag.Title = "Aggiungi Prenotazione";
-    SelectList clienti = ViewBag.Clienti as SelectList;
-    SelectList camere = ViewBag.Camere as SelectList;
+    SelectList? clienti = ViewBag.ClientiList as SelectList;
+    SelectList? camere = ViewBag.CamereList as SelectList;
 }
 
 <section>

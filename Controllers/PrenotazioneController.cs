@@ -37,10 +37,18 @@ namespace HotelDbProject.Controllers
 
             public async Task<IActionResult> Create()
             {
-                SelectList clientiList = new SelectList(await _clienteService.GetAllClientiAsync(), "ClienteId", "Nome","Cognome");
-                SelectList camereList = new SelectList(await _cameraService.GetAllCamereAsync(), "CameraId", "NumeroCamera","Tipo", "Prezzo");
-                ViewBag.CamereList = camereList;
+            SelectList clientiList = new SelectList((await _clienteService.GetAllClientiAsync()).Select(static c => new {
+                c.ClienteId,
+                NomeCompleto = c.Nome + " " + c.Cognome
+                }), "ClienteId", "NomeCompleto");
+                SelectList camereList = new SelectList((await _cameraService.GetAllCamereAsync()).Select(static c => new
+                {
+                    c.CameraId,
+                    NumeroTipoPrezzo = c.Numero + " " + c.Tipo + " " + c.Prezzo
+                }), "CameraId", "NumeroTipoPrezzo");
                 ViewBag.ClientiList = clientiList;
+                ViewBag.CamereList = camereList;
+                
             return View();
             }
             [HttpPost]
@@ -57,6 +65,81 @@ namespace HotelDbProject.Controllers
                 };
                 await _prenotazioneService.CreatePrenotazioneAsync(prenotazione);
                 return RedirectToAction("Index");
+            }
+        // GET - Edit (MODAL)
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            Prenotazione? prenotazione = await _prenotazioneService.GetPrenotazioneByIdAsync(id);
+            if (prenotazione == null) return NotFound();
+
+            ViewBag.ClientiList = new SelectList(
+                await _clienteService.GetAllClientiAsync(),
+                "ClienteId",
+                "Nome"
+            );
+
+            ViewBag.CamereList = new SelectList(
+                await _cameraService.GetAllCamereAsync(),
+                "CameraId",
+                "Numero"
+            );
+
+            PrenotazioneViewModel vm = new PrenotazioneViewModel
+            {
+                PrenotazioneId = prenotazione.PrenotazioneId,
+                ClienteId = prenotazione.ClienteId,
+                CameraId = prenotazione.CameraId,
+                DataInizio = prenotazione.DataInizio,
+                DataFine = prenotazione.DataFine,
+                StatoPrenotazione = prenotazione.StatoPrenotazione
+            };
+
+            return PartialView("_EditModal", vm);
         }
+
+        // POST - Edit
+        [HttpPost]
+        public async Task<IActionResult> EditSave(PrenotazioneViewModel vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ClientiList = new SelectList(await _clienteService.GetAllClientiAsync(), "ClienteId", "Nome");
+                ViewBag.CamereList = new SelectList(await _cameraService.GetAllCamereAsync(), "CameraId", "Numero");
+                return PartialView("_EditModal", vm);
+            }
+
+            Prenotazione prenotazione = new Prenotazione
+            {
+                PrenotazioneId = vm.PrenotazioneId,
+                ClienteId = vm.ClienteId,
+                CameraId = vm.CameraId,
+                DataInizio = vm.DataInizio,
+                DataFine = vm.DataFine,
+                StatoPrenotazione = vm.StatoPrenotazione
+            };
+
+            await _prenotazioneService.UpdatePrenotazioneAsync(prenotazione);
+            return RedirectToAction("Index");
+        }
+
+        // GET - Delete (MODAL)
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            Prenotazione? prenotazione = await _prenotazioneService.GetPrenotazioneByIdAsync(id);
+            if (prenotazione == null) return NotFound();
+
+            return PartialView("_DeleteModal", prenotazione);
+        }
+
+        // POST - Delete
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        {
+            await _prenotazioneService.DeletePrenotazioneAsync(id);
+            return RedirectToAction("Index");
+        }
+
     }
 }

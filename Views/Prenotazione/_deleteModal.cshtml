@@ -1,0 +1,19 @@
+﻿@model HotelDbProject.Models.Prenotazione
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" name="id" value="@Model.PrenotazioneId" />
+
+
+    <p>
+        Sei sicuro di voler eliminare questa prenotazione?
+    </p>
+
+    <ul>
+        <li><strong>Dal:</strong> @Model.DataInizio.ToShortDateString()</li>
+        <li><strong>Al:</strong> @Model.DataFine.ToShortDateString()</li>
+        <li><strong>Stato:</strong> @Model.StatoPrenotazione</li>
+    </ul>
+
+    <button type="submit" class="btn btn-danger">Elimina</button>
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+</form>

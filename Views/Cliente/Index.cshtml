@@ -26,12 +26,55 @@
                     <td>@cliente.Email</td>
                     <td>@cliente.Telefono</td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@cliente.ClienteId" class="btn btn-primary">Modifica</a>
-                        <a asp-action="Delete" asp-route-id="@cliente.ClienteId" class="btn btn-danger">Elimina</a>
+                        <button class="btn btn-warning btn-sm"
+                                onclick="openEditModal('@cliente.ClienteId')">
+                            Edit
+                        </button>
+
+                        <button class="btn btn-danger btn-sm"
+                                onclick="openDeleteModal('@cliente.ClienteId')">
+                            Delete
+                        </button>
+
                     </td>
                 </tr>
             }
         }
     </tbody>
 </table>
+
+<div class="modal fade" id="editModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body" id="editModalContent"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body" id="deleteModalContent"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function openEditModal(id) {
+            $.get("/Cliente/Edit?id=" + id, function (data) {
+                $("#editModalContent").html(data);
+                $("#editModal").modal('show');
+            });
+        }
+
+        function openDeleteModal(id) {
+            $.get("/Cliente/Delete?id=" + id, function (data) {
+                $("#deleteModalContent").html(data);
+                $("#deleteModal").modal('show');
+            });
+        }
+    </script>
+}
+
 

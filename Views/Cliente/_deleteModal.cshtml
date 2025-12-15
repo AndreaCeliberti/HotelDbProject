@@ -1,0 +1,13 @@
+﻿@model HotelDbProject.Models.Cliente
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" name="id" value="@Model.ClienteId" />
+
+    <p>
+        Sei sicuro di voler eliminare
+        <strong>@Model.Nome @Model.Cognome</strong>?
+    </p>
+
+    <button type="submit" class="btn btn-danger">Elimina</button>
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+</form>

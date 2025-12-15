@@ -1,0 +1,41 @@
+﻿@model HotelDbProject.ViewModels.PrenotazioneViewModel
+
+<form asp-action="EditSave" method="post">
+    <input type="hidden" asp-for="PrenotazioneId" />
+
+    <div class="mb-2">
+        <label asp-for="ClienteId">Cliente</label>
+        <select asp-for="ClienteId"
+                asp-items="ViewBag.ClientiList"
+                class="form-control">
+            <option value="">-- Seleziona cliente --</option>
+        </select>
+    </div>
+
+    <div class="mb-2">
+        <label asp-for="CameraId">Camera</label>
+        <select asp-for="CameraId"
+                asp-items="ViewBag.CamereList"
+                class="form-control">
+            <option value="">-- Seleziona camera --</option>
+        </select>
+    </div>
+
+    <div class="mb-2">
+        <label asp-for="DataInizio"></label>
+        <input asp-for="DataInizio" type="date" class="form-control" />
+    </div>
+
+    <div class="mb-2">
+        <label asp-for="DataFine"></label>
+        <input asp-for="DataFine" type="date" class="form-control" />
+    </div>
+
+    <div class="mb-2">
+        <label asp-for="StatoPrenotazione"></label>
+        <input asp-for="StatoPrenotazione" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salva</button>
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+</form>

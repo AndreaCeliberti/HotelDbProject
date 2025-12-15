@@ -1,0 +1,28 @@
+﻿@model HotelDbProject.ViewModels.ClienteViewModel
+
+<form asp-action="EditSave" method="post">
+    <input type="hidden" asp-for="ClienteId" />
+
+    <div class="mb-2">
+        <label asp-for="Nome"></label>
+        <input asp-for="Nome" class="form-control" />
+    </div>
+
+    <div class="mb-2">
+        <label asp-for="Cognome"></label>
+        <input asp-for="Cognome" class="form-control" />
+    </div>
+
+    <div class="mb-2">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+
+    <div class="mb-2">
+        <label asp-for="Telefono"></label>
+        <input asp-for="Telefono" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salva</button>
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+</form>
