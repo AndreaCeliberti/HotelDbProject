@@ -115,8 +115,7 @@ namespace HotelDbProject.Controllers
                     {
                         UserName = registerRequest.Email,
                         Email = registerRequest.Email,
-                        Password = registerRequest.Password,
-                        Id = Guid.NewGuid().ToString(),
+                        
                         
                     };
                     // aggiungo tramite il "service" UserManager l'utente al database
