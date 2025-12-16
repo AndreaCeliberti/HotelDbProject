@@ -1,4 +1,4 @@
-﻿@model Microsoft.AspNetCore.Identity.IdentityUser
+﻿@model Microsoft.AspNetCore.Identity.Data.LoginRequest
 @{
 }
 
@@ -6,7 +6,7 @@
     <div class="card shadow-sm" style="width: 22rem;">
         <div class="card-body">
             <h3 class="card-title text-center mb-4">Accedi</h3>
-            <form method="post" action="/AspNetUser/Login">
+            <form method="post" asp-controller="Identity" asp-action="Save">
                 <!-- Username -->
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>

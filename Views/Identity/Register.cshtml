@@ -4,7 +4,7 @@
 
     }
 
-<form class="table" action="/AspNetUser/save" method="post">
+<form class="table" asp-controller="Identity" asp-action="Save" method="post">
     @* @Html.AntiForgeryToken() *@
     <!-- Email -->
     <label for="email">Email:</label>
