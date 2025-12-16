@@ -1,0 +1,31 @@
+﻿﻿
+    @{
+
+
+    }
+
+<form class="table" action="/AspNetUser/save" method="post">
+    @* @Html.AntiForgeryToken() *@
+    <!-- Email -->
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="Email" required />
+    <br />
+
+    <!-- Password -->
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="Password" required />
+    <br />
+
+    <!-- Nome -->
+    <label for="name">Nome:</label>
+    <input type="text" id="name" name="Name" required />
+    <br />
+
+    <!-- Cognome -->
+    <label for="surname">Cognome:</label>
+    <input type="text" id="surname" name="Surname" required />
+    <br />
+
+    <!-- Submit -->
+    <button type="submit">Registrati</button>
+</form>

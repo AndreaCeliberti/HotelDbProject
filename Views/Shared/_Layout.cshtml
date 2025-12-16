@@ -22,21 +22,38 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Prenotazione" asp-action="Index">Lista Prenotazioni</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="Index">Lista Clienti</a>
-                        </li>
-                        @*<li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Camera" asp-action="Index">Lista Camere</a>
-                        </li>*@
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Cliente" asp-action="Create">Inserisci Cliente</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Prenotazione" asp-action="Create">Inserisci Prenotazione</a>
-                        </li>
+                         @if (!User.Identity.IsAuthenticated)
+                        {
+                            @* Register è una pagina per gli utenti non loggati *@
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Identity" asp-action="Register">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Identity" asp-action="Login">Login</a>
+                            </li>
+                        }
+                        else
+                        {
+                            if (User.IsInRole("User"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Prenotazione" asp-action="Index">Lista Prenotazioni</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="Index">Lista Clienti</a>
+                                </li>
+                            }
+                            if (User.IsInRole("User"))
+                            {
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Cliente" asp-action="Create">Inserisci Cliente</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Prenotazione" asp-action="Create">Inserisci Prenotazione</a>
+                                </li>
+                            }
+                        }
                     </ul>
                 </div>
             </div>
